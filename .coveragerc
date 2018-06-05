@@ -1,0 +1,6 @@
+[report]
+ignore_errors = True
+
+[xml]
+output = reports/coverage-unit.xml
+

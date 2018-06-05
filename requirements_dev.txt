@@ -1,0 +1,6 @@
+pip
+setuptools
+pytest
+pytest-runner
+pyhamcrest
+junit-xml
