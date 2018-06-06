@@ -2,7 +2,9 @@ import functools
 import logging
 import os
 import shutil
+import tempfile
 import threading
+from contextlib import contextmanager
 from io import BytesIO
 from re import sub
 
@@ -342,6 +344,35 @@ class Client(object):
             _remote_path = '{parent}{name}'.format(parent=urn.path(), name=resource_name)
             _local_path = os.path.join(local_path, resource_name)
             self.download(local_path=_local_path, remote_path=_remote_path, progress=progress)
+
+    @contextmanager
+    @wrap_connection_error
+    def open(self, file, mode='r', buffering=None, encoding=None, errors=None, newline=None, closefd=True):
+        '''Downloads file from WebDAV server and saves it temprorary, then opens it for further manipulations.
+        Has the same interface as built-in open()
+
+        :param file: the path to remote file for opening.
+        '''
+        urn = Urn(file)
+
+        if self.is_dir(urn.path()):
+            raise OptionNotValid(name='file', value=file)
+
+        remote_file_exists = self.check(urn.path())
+
+        if not remote_file_exists and 'r' in mode:
+            raise RemoteResourceNotFound(urn.path())
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            local_path = os.path.sep.join(temp_dir, file)
+
+            self.download_file(file, local_path)
+
+            with open(local_path, mode, buffering, encoding, errors, newline, closefd) as f:
+                yield f
+
+            if 'w' in mode or 'a' in mode or 'x' in mode:
+                self.upload_file(local_path, file)
 
     @wrap_connection_error
     def download_file(self, remote_path, local_path, progress=None):
