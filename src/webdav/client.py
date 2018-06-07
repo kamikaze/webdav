@@ -378,7 +378,7 @@ class Client(object):
                 yield f
 
             if 'w' in mode or 'a' in mode or 'x' in mode:
-                self.upload_file(local_path, file)
+                self.upload_file(file, local_path)
 
     @wrap_connection_error
     def download_file(self, remote_path, local_path, progress=None):
