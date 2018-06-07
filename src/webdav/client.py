@@ -354,14 +354,15 @@ class Client(object):
         :param file: the path to remote file for opening.
         """
         urn = Urn(file)
+        urn_path = urn.path()
 
-        if self.is_dir(urn.path()):
+        remote_file_exists = self.check(urn_path)
+
+        if not remote_file_exists:
+            if 'r' in mode:
+                raise RemoteResourceNotFound(urn_path)
+        elif self.is_dir(urn_path):
             raise OptionNotValid(name='file', value=file)
-
-        remote_file_exists = self.check(urn.path())
-
-        if not remote_file_exists and 'r' in mode:
-            raise RemoteResourceNotFound(urn.path())
 
         with tempfile.TemporaryDirectory() as temp_dir:
             local_path = f'{temp_dir}{os.path.sep}{file}'
