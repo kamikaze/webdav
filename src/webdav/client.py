@@ -367,7 +367,8 @@ class Client(object):
         with tempfile.TemporaryDirectory() as temp_dir:
             local_path = f'{temp_dir}{os.path.sep}{file}'
 
-            self.download_file(file, local_path)
+            if remote_file_exists:
+                self.download_file(file, local_path)
 
             with open(file=local_path, mode=mode, buffering=buffering, encoding=encoding, errors=errors,
                       newline=newline, closefd=closefd, opener=opener) as f:
