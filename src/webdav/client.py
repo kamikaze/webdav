@@ -369,6 +369,9 @@ class Client(object):
 
             if remote_file_exists:
                 self.download_file(file, local_path)
+            else:
+                if ('w' in mode or 'a' in mode or 'x' in mode) and os.path.sep in local_path:
+                    os.makedirs(local_path.rsplit(os.path.sep, 1)[0], exist_ok=True)
 
             with open(file=local_path, mode=mode, buffering=buffering, encoding=encoding, errors=errors,
                       newline=newline, closefd=closefd, opener=opener) as f:
