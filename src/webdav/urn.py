@@ -19,10 +19,10 @@ class Urn(object):
             self._path = sub(expression, Urn.separate, self._path)
 
         if not self._path.startswith(Urn.separate):
-            self._path = '{begin}{end}'.format(begin=Urn.separate, end=self._path)
+            self._path = f'{Urn.separate}{self._path}'
 
         if directory and not self._path.endswith(Urn.separate):
-            self._path = '{begin}{end}'.format(begin=self._path, end=Urn.separate)
+            self._path = f'{self._path}{Urn.separate}'
 
     def __str__(self):
         return self.path()
