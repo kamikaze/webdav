@@ -8,6 +8,9 @@ webdav
 Release Notes
 =============
 
+**Version 1.1.5 - 05.10.2018**
+ * Use connection pool by https://github.com/kamikaze
+
 **Version 1.1.4 - 05.10.2018**
  * Handle HTTP 405 response code for MKCOL by https://github.com/kamikaze
 

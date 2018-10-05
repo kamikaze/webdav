@@ -155,7 +155,7 @@ class Client(object):
                             the specified action.
         :return: HTTP response of request.
         """
-        response = requests.request(
+        response = self.session.request(
             method=Client.requests[action],
             url=self.get_url(path),
             auth=self.webdav.auth,
@@ -220,6 +220,7 @@ class Client(object):
         self.webdav = WebDAVSettings(webdav_options)
         self.proxy = ProxySettings(proxy_options)
         self.default_options = {}
+        self.session = requests.Session()
 
     def valid(self):
         """Validates of WebDAV and proxy settings.
