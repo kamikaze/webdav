@@ -8,6 +8,9 @@ webdav
 Release Notes
 =============
 
+**Version 1.1.4 - 05.10.2018**
+ * Handle HTTP 405 response code for MKCOL by https://github.com/kamikaze
+
 **Version 1.1.2 - 07.06.2018**
  * Check for is_dir after confirmed that resource exists by https://github.com/kamikaze
  * Download remote file for open() only if it exists by https://github.com/kamikaze

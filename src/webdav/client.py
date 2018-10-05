@@ -289,8 +289,15 @@ class Client(object):
         if not self.check(directory_urn.parent()):
             raise RemoteParentNotFound(directory_urn.path())
 
-        response = self.execute_request(action='mkdir', path=directory_urn.quote())
-        return response.status_code in (200, 201)
+        try:
+            response = self.execute_request(action='mkdir', path=directory_urn.quote())
+
+            return response.status_code in (200, 201)
+        except ResponseErrorCode as e:
+            if e.code == 405:
+                return True
+
+            raise
 
     @wrap_connection_error
     def download_from(self, buff, remote_path):

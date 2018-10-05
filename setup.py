@@ -32,7 +32,7 @@ class Test(test):
 
 setup(
     name='webdav',
-    version='1.1.3',
+    version='1.1.4',
     packages=['webdav'],
     package_dir={'': 'src'},
     requires=['python (>= 3.6)'],
