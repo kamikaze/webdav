@@ -287,8 +287,6 @@ class Client(object):
 
         """
         directory_urn = Urn(remote_path, directory=True)
-        if not self.check(directory_urn.parent()):
-            raise RemoteParentNotFound(directory_urn.path())
 
         try:
             response = self.execute_request(action='mkdir', path=directory_urn.quote())
