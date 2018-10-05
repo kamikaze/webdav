@@ -40,17 +40,6 @@ setup(
         'lxml',
         'requests',
     ),
-    setup_requires=(
-        'pip',
-        'setuptools',
-        'wheel',
-    ),
-    tests_require=(
-        'pytest',
-        'pytest-runner',
-        'pyhamcrest',
-        'junit-xml',
-    ),
     cmdclass={'test': Test},
     description='WebDAV client library',
     long_description=open('README.rst').read(),
