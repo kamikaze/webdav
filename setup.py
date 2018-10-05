@@ -5,33 +5,6 @@ from setuptools import setup
 from setuptools.command.test import test
 
 
-def parse_requirements(requirements, ignore=('setuptools',)):
-    """
-    Read dependencies from requirements file (with version numbers if any)
-    Notes:
-        - this implementation does not support requirements files with extra
-          requirements
-        - this implementation has been taken from TailorDev/Watson's setup file
-    """
-    with open(requirements) as f:
-        packages = set()
-
-        for line in f:
-            line = line.strip()
-
-            if line.startswith(('#', '-r', '--')):
-                continue
-
-            if '#egg=' in line:
-                line = line.split('#egg=')[1]
-            pkg = line.strip()
-
-            if pkg not in ignore:
-                packages.add(pkg)
-
-        return tuple(packages)
-
-
 class Test(test):
     user_options = [('pytest-args=', 'a', '')]
 
@@ -59,13 +32,25 @@ class Test(test):
 
 setup(
     name='webdav',
-    version='1.1.2',
+    version='1.1.3',
     packages=['webdav'],
     package_dir={'': 'src'},
     requires=['python (>= 3.6)'],
-    install_requires=parse_requirements('requirements.txt'),
-    setup_requires=parse_requirements('requirements_dev.txt'),
-    tests_require=parse_requirements('requirements_dev.txt'),
+    install_requires=(
+        'lxml',
+        'requests',
+    ),
+    setup_requires=(
+        'pip',
+        'setuptools',
+        'wheel',
+    ),
+    tests_require=(
+        'pytest',
+        'pytest-runner',
+        'pyhamcrest',
+        'junit-xml',
+    ),
     cmdclass={'test': Test},
     description='WebDAV client library',
     long_description=open('README.rst').read(),

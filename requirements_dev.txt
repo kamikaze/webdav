@@ -1,7 +1,0 @@
-pip
-setuptools
-wheel
-pytest
-pytest-runner
-pyhamcrest
-junit-xml
