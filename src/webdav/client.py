@@ -930,11 +930,13 @@ class WebDavXmlUtils:
         """
         response = WebDavXmlUtils.extract_response_for_path(content=content, path=path, hostname=hostname)
         resource_type = response.find('.//{DAV:}resourcetype')
+
         if resource_type is None:
             raise MethodNotSupported(name='is_dir', server=hostname)
+
         dir_type = resource_type.find('{DAV:}collection')
 
-        return True if dir_type is not None else False
+        return dir_type is not None
 
     @staticmethod
     def create_get_property_request_content(option):
