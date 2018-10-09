@@ -84,4 +84,3 @@ class ProxySettings(ConnectionSettings):
     def is_valid(self):
         if self.auth and not self.hostname:
             raise OptionNotValid(name='hostname', value=self.hostname, ns=self.ns)
-

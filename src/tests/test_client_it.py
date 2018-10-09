@@ -54,16 +54,16 @@ class ClientTestCase(TestCase):
         self.client.mkdir(remote_path=self.remote_path_dir)
         self.assertTrue(self.client.check(remote_path=self.remote_path_dir), 'Expected the directory is created.')
 
-    @unittest.skip("Yandex brakes response for file it contains property resourcetype as collection but it should "
-                   "be empty for file")
+    @unittest.skip('Yandex brakes response for file it contains property resourcetype as collection but it should '
+                   'be empty for file')
     def test_download_to(self):
         self._prepare_for_downloading()
         buff = BytesIO()
         self.client.download_from(buff=buff, remote_path=self.remote_path_file)
         self.assertEquals(buff.getvalue(), 'test content for testing of webdav client')
 
-    @unittest.skip("Yandex brakes response for file it contains property resourcetype as collection but it should "
-                   "be empty for file")
+    @unittest.skip('Yandex brakes response for file it contains property resourcetype as collection but it should '
+                   'be empty for file')
     def test_download(self):
         self._prepare_for_downloading()
         self.client.download(local_path=self.local_path_dir, remote_path=self.remote_path_dir)
@@ -74,8 +74,8 @@ class ClientTestCase(TestCase):
         self.assertTrue(path.isfile(self.local_path_dir + os.path.sep + self.local_path_file),
                         'Expected this is a file')
 
-    @unittest.skip("Yandex brakes response for file it contains property resourcetype as collection but it should "
-                   "be empty for file")
+    @unittest.skip('Yandex brakes response for file it contains property resourcetype as collection but it should '
+                   'be empty for file')
     def test_download_sync(self):
         self._prepare_for_downloading()
         os.mkdir(self.local_path_dir)
@@ -91,8 +91,8 @@ class ClientTestCase(TestCase):
         self.assertTrue(path.exists(self.local_path_dir + os.path.sep + self.local_file),
                         'Expected the file has already been downloaded')
 
-    @unittest.skip("Yandex brakes response for file it contains property resourcetype as collection but it should "
-                   "be empty for file")
+    @unittest.skip('Yandex brakes response for file it contains property resourcetype as collection but it should '
+                   'be empty for file')
     def test_download_async(self):
         self._prepare_for_downloading()
         os.mkdir(self.local_path_dir)

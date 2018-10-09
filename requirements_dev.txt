@@ -1,6 +1,7 @@
 pip
 setuptools
 wheel
+coala-bears
 pytest
 pytest-runner
 pyhamcrest
