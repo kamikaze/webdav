@@ -165,6 +165,8 @@ class Client(object):
         )
         if response.status_code == 507:
             raise NotEnoughSpace()
+        if 499 < response.status_code < 600:
+            raise ServerException(url=self.get_url(path), code=response.status_code, message=response.content)
         if response.status_code >= 400:
             raise ResponseErrorCode(url=self.get_url(path), code=response.status_code, message=response.content)
         return response
@@ -275,6 +277,7 @@ class Client(object):
 
         if int(response.status_code) == 200:
             return True
+
         return False
 
     @wrap_connection_error

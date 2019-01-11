@@ -102,6 +102,17 @@ class ResponseErrorCode(WebDavException):
         return f'Request to {self.url} failed with code {self.code} and message: {self.message}'
 
 
+class ServerException(WebDavException):
+    def __init__(self, url, code, message):
+        self.url = url
+        self.code = code
+        self.message = message
+
+    def __str__(self):
+        return f'WebDAV server failed to process request to {self.url} failed with code {self.code} and message:' \
+            f' {self.message}'
+
+
 class NotEnoughSpace(WebDavException):
     def __init__(self):
         pass
